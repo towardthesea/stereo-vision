@@ -259,6 +259,7 @@ using namespace iCub::iKin;
 
 class SFM: public yarp::os::RFModule
 {
+protected:
     IplImage*     left;
     IplImage*     right;
     StereoCamera* stereo;

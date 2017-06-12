@@ -675,7 +675,6 @@ Point3f SFM::get3DPointsAndDisp(int u, int v, int& uR, int& vR, const string &dr
         P.at<double>(3,0)=1.0;
 
         Mat Hrect=buildRotTras(RLrect,Tfake);
-        getCameraHGazeCtrl(LEFT);
         P=HL_root*Hrect*P;
         point.x=(float)(P.at<double>(0,0)/P.at<double>(3,0));
         point.y=(float)(P.at<double>(1,0)/P.at<double>(3,0));
@@ -771,7 +770,6 @@ Point3f SFM::get3DPoints(int u, int v, const string &drive)
         P.at<double>(3,0)=1.0;
 
         Mat Hrect=buildRotTras(RLrect,Tfake);
-        getCameraHGazeCtrl(LEFT);
         P=HL_root*Hrect*P;
         point.x=(float)(P.at<double>(0,0)/P.at<double>(3,0));
         point.y=(float)(P.at<double>(1,0)/P.at<double>(3,0));
@@ -862,7 +860,6 @@ Point3f SFM::get3DPointMatch(double u1, double v1, double u2, double v2,
         P.at<double>(3,0)=1.0;
 
         Mat Hrect=buildRotTras(RLrect,Tfake);
-        getCameraHGazeCtrl(LEFT);
         P=HL_root*Hrect*P;
         point.x=(float)(P.at<double>(0,0)/P.at<double>(3,0));
         point.y=(float)(P.at<double>(1,0)/P.at<double>(3,0));
@@ -1120,6 +1117,8 @@ bool SFM::respond(const Bottle& command, Bottle& reply)
         int u = command.get(0).asInt();
         int v = command.get(1).asInt();
         int uR,vR;
+
+        getCameraHGazeCtrl(LEFT);
         Point3f point = this->get3DPointsAndDisp(u,v,uR,vR,"ROOT");
         reply.addDouble(point.x);
         reply.addDouble(point.y);
@@ -1140,6 +1139,8 @@ bool SFM::respond(const Bottle& command, Bottle& reply)
     {
         int u = command.get(1).asInt();
         int v = command.get(2).asInt();
+
+        getCameraHGazeCtrl(LEFT);
         Point3f point = this->get3DPoints(u,v,"ROOT");
         reply.addDouble(point.x);
         reply.addDouble(point.y);
@@ -1156,6 +1157,7 @@ bool SFM::respond(const Bottle& command, Bottle& reply)
         if (command.size()>=6)
             step=command.get(5).asInt();
 
+        getCameraHGazeCtrl(LEFT);
         for (int u=tl_u; u<br_u; u+=step)
         {
             for (int v=tl_v; v<br_v; v+=step)
@@ -1173,6 +1175,8 @@ bool SFM::respond(const Bottle& command, Bottle& reply)
         {
             int u=command.get(cnt).asInt();
             int v=command.get(cnt+1).asInt();
+
+            getCameraHGazeCtrl(LEFT);
             Point3f point=this->get3DPoints(u,v,"ROOT");
             reply.addDouble(point.x);
             reply.addDouble(point.y);
@@ -1187,7 +1191,8 @@ bool SFM::respond(const Bottle& command, Bottle& reply)
         double dist=0.004;
         if (command.size()>=4)
             dist=command.get(3).asDouble();
-        
+
+        getCameraHGazeCtrl(LEFT);
         Point3f p=get3DPoints(seed.x,seed.y,"ROOT");
         if (cv::norm(p)>0.0)
         {
@@ -1263,6 +1268,7 @@ bool SFM::respond(const Bottle& command, Bottle& reply)
             double ur = command.get(i+2).asDouble();
             double vr = command.get(i+3).asDouble();
 
+            getCameraHGazeCtrl(LEFT);
             Point3f point= this->get3DPointMatch(ul,vl,ur,vr,"ROOT");
             reply.addDouble(point.x);
             reply.addDouble(point.y);
@@ -1322,7 +1328,6 @@ void SFM::fillWorld3D(ImageOf<PixelRgbFloat> &worldCartImg,
 
     Mat Tfake=Mat::zeros(0,3,CV_64F);
     Mat Hrect=buildRotTras(RLrect,Tfake);
-    getCameraHGazeCtrl(LEFT);
     Hrect=HL_root*Hrect;
 
     Mat P(4,1,CV_64FC1);

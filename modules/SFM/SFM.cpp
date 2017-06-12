@@ -675,6 +675,7 @@ Point3f SFM::get3DPointsAndDisp(int u, int v, int& uR, int& vR, const string &dr
         P.at<double>(3,0)=1.0;
 
         Mat Hrect=buildRotTras(RLrect,Tfake);
+        getCameraHGazeCtrl(LEFT);
         P=HL_root*Hrect*P;
         point.x=(float)(P.at<double>(0,0)/P.at<double>(3,0));
         point.y=(float)(P.at<double>(1,0)/P.at<double>(3,0));
@@ -770,6 +771,7 @@ Point3f SFM::get3DPoints(int u, int v, const string &drive)
         P.at<double>(3,0)=1.0;
 
         Mat Hrect=buildRotTras(RLrect,Tfake);
+        getCameraHGazeCtrl(LEFT);
         P=HL_root*Hrect*P;
         point.x=(float)(P.at<double>(0,0)/P.at<double>(3,0));
         point.y=(float)(P.at<double>(1,0)/P.at<double>(3,0));
@@ -860,6 +862,7 @@ Point3f SFM::get3DPointMatch(double u1, double v1, double u2, double v2,
         P.at<double>(3,0)=1.0;
 
         Mat Hrect=buildRotTras(RLrect,Tfake);
+        getCameraHGazeCtrl(LEFT);
         P=HL_root*Hrect*P;
         point.x=(float)(P.at<double>(0,0)/P.at<double>(3,0));
         point.y=(float)(P.at<double>(1,0)/P.at<double>(3,0));
@@ -1319,6 +1322,7 @@ void SFM::fillWorld3D(ImageOf<PixelRgbFloat> &worldCartImg,
 
     Mat Tfake=Mat::zeros(0,3,CV_64F);
     Mat Hrect=buildRotTras(RLrect,Tfake);
+    getCameraHGazeCtrl(LEFT);
     Hrect=HL_root*Hrect;
 
     Mat P(4,1,CV_64FC1);

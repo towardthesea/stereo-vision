@@ -937,6 +937,11 @@ Matrix SFM::getCameraHGazeCtrl(int camera)
     else
         check=igaze->getRightEyePose(x_curr, o_curr);
 
+    if (check)
+        yDebug("[SFM:getCameraHGazeCtrl] getLeftEyePose: OK");
+    else
+        yDebug("[SFM:getCameraHGazeCtrl] getLeftEyePose: failed");
+
     if(!check)
     {
         Matrix H_curr(4, 4);

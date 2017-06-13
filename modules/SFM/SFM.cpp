@@ -1123,6 +1123,14 @@ bool SFM::respond(const Bottle& command, Bottle& reply)
         int v = command.get(1).asInt();
         int uR,vR;
 
+        // read encoders
+        iencs->getEncoder(nHeadAxes-3,&eyes[0]);
+        iencs->getEncoder(nHeadAxes-2,&eyes[1]);
+        iencs->getEncoder(nHeadAxes-1,&eyes[2]);
+
+        updateViaKinematics(eyes-eyes0);
+        updateViaGazeCtrl(false);
+
         getCameraHGazeCtrl(LEFT);
         Point3f point = this->get3DPointsAndDisp(u,v,uR,vR,"ROOT");
         reply.addDouble(point.x);
@@ -1145,6 +1153,14 @@ bool SFM::respond(const Bottle& command, Bottle& reply)
         int u = command.get(1).asInt();
         int v = command.get(2).asInt();
 
+        // read encoders
+        iencs->getEncoder(nHeadAxes-3,&eyes[0]);
+        iencs->getEncoder(nHeadAxes-2,&eyes[1]);
+        iencs->getEncoder(nHeadAxes-1,&eyes[2]);
+
+        updateViaKinematics(eyes-eyes0);
+        updateViaGazeCtrl(false);
+
         getCameraHGazeCtrl(LEFT);
         Point3f point = this->get3DPoints(u,v,"ROOT");
         reply.addDouble(point.x);
@@ -1161,6 +1177,14 @@ bool SFM::respond(const Bottle& command, Bottle& reply)
         int step = 1;
         if (command.size()>=6)
             step=command.get(5).asInt();
+
+        // read encoders
+        iencs->getEncoder(nHeadAxes-3,&eyes[0]);
+        iencs->getEncoder(nHeadAxes-2,&eyes[1]);
+        iencs->getEncoder(nHeadAxes-1,&eyes[2]);
+
+        updateViaKinematics(eyes-eyes0);
+        updateViaGazeCtrl(false);
 
         getCameraHGazeCtrl(LEFT);
         for (int u=tl_u; u<br_u; u+=step)
@@ -1181,6 +1205,14 @@ bool SFM::respond(const Bottle& command, Bottle& reply)
             int u=command.get(cnt).asInt();
             int v=command.get(cnt+1).asInt();
 
+            // read encoders
+            iencs->getEncoder(nHeadAxes-3,&eyes[0]);
+            iencs->getEncoder(nHeadAxes-2,&eyes[1]);
+            iencs->getEncoder(nHeadAxes-1,&eyes[2]);
+
+            updateViaKinematics(eyes-eyes0);
+            updateViaGazeCtrl(false);
+
             getCameraHGazeCtrl(LEFT);
             Point3f point=this->get3DPoints(u,v,"ROOT");
             reply.addDouble(point.x);
@@ -1196,6 +1228,14 @@ bool SFM::respond(const Bottle& command, Bottle& reply)
         double dist=0.004;
         if (command.size()>=4)
             dist=command.get(3).asDouble();
+
+        // read encoders
+        iencs->getEncoder(nHeadAxes-3,&eyes[0]);
+        iencs->getEncoder(nHeadAxes-2,&eyes[1]);
+        iencs->getEncoder(nHeadAxes-1,&eyes[2]);
+
+        updateViaKinematics(eyes-eyes0);
+        updateViaGazeCtrl(false);
 
         getCameraHGazeCtrl(LEFT);
         Point3f p=get3DPoints(seed.x,seed.y,"ROOT");

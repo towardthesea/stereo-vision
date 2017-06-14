@@ -1132,6 +1132,11 @@ bool SFM::respond(const Bottle& command, Bottle& reply)
         updateViaGazeCtrl(false);
 
         getCameraHGazeCtrl(LEFT);
+        mutexDisp.lock();
+        this->stereo->computeDisparity(this->useBestDisp,this->uniquenessRatio,this->speckleWindowSize,
+                this->speckleRange,this->numberOfDisparities,this->SADWindowSize,
+                this->minDisparity,this->preFilterCap,this->disp12MaxDiff);
+        mutexDisp.unlock();
         Point3f point = this->get3DPointsAndDisp(u,v,uR,vR,"ROOT");
         reply.addDouble(point.x);
         reply.addDouble(point.y);
@@ -1162,6 +1167,11 @@ bool SFM::respond(const Bottle& command, Bottle& reply)
         updateViaGazeCtrl(false);
 
         getCameraHGazeCtrl(LEFT);
+        mutexDisp.lock();
+        this->stereo->computeDisparity(this->useBestDisp,this->uniquenessRatio,this->speckleWindowSize,
+                this->speckleRange,this->numberOfDisparities,this->SADWindowSize,
+                this->minDisparity,this->preFilterCap,this->disp12MaxDiff);
+        mutexDisp.unlock();
         Point3f point = this->get3DPoints(u,v,"ROOT");
         reply.addDouble(point.x);
         reply.addDouble(point.y);
@@ -1187,6 +1197,11 @@ bool SFM::respond(const Bottle& command, Bottle& reply)
         updateViaGazeCtrl(false);
 
         getCameraHGazeCtrl(LEFT);
+        mutexDisp.lock();
+        this->stereo->computeDisparity(this->useBestDisp,this->uniquenessRatio,this->speckleWindowSize,
+                this->speckleRange,this->numberOfDisparities,this->SADWindowSize,
+                this->minDisparity,this->preFilterCap,this->disp12MaxDiff);
+        mutexDisp.unlock();
         for (int u=tl_u; u<br_u; u+=step)
         {
             for (int v=tl_v; v<br_v; v+=step)
@@ -1214,6 +1229,11 @@ bool SFM::respond(const Bottle& command, Bottle& reply)
             updateViaGazeCtrl(false);
 
             getCameraHGazeCtrl(LEFT);
+            mutexDisp.lock();
+            this->stereo->computeDisparity(this->useBestDisp,this->uniquenessRatio,this->speckleWindowSize,
+                    this->speckleRange,this->numberOfDisparities,this->SADWindowSize,
+                    this->minDisparity,this->preFilterCap,this->disp12MaxDiff);
+            mutexDisp.unlock();
             Point3f point=this->get3DPoints(u,v,"ROOT");
             reply.addDouble(point.x);
             reply.addDouble(point.y);
@@ -1238,6 +1258,11 @@ bool SFM::respond(const Bottle& command, Bottle& reply)
         updateViaGazeCtrl(false);
 
         getCameraHGazeCtrl(LEFT);
+        mutexDisp.lock();
+        this->stereo->computeDisparity(this->useBestDisp,this->uniquenessRatio,this->speckleWindowSize,
+                this->speckleRange,this->numberOfDisparities,this->SADWindowSize,
+                this->minDisparity,this->preFilterCap,this->disp12MaxDiff);
+        mutexDisp.unlock();
         Point3f p=get3DPoints(seed.x,seed.y,"ROOT");
         if (cv::norm(p)>0.0)
         {

@@ -1131,7 +1131,6 @@ bool SFM::respond(const Bottle& command, Bottle& reply)
         updateViaKinematics(eyes-eyes0);
         updateViaGazeCtrl(false);
 
-        getCameraHGazeCtrl(LEFT);
         mutexDisp.lock();
         this->stereo->computeDisparity(this->useBestDisp,this->uniquenessRatio,this->speckleWindowSize,
                 this->speckleRange,this->numberOfDisparities,this->SADWindowSize,
@@ -1166,7 +1165,6 @@ bool SFM::respond(const Bottle& command, Bottle& reply)
         updateViaKinematics(eyes-eyes0);
         updateViaGazeCtrl(false);
 
-        getCameraHGazeCtrl(LEFT);
         mutexDisp.lock();
         this->stereo->computeDisparity(this->useBestDisp,this->uniquenessRatio,this->speckleWindowSize,
                 this->speckleRange,this->numberOfDisparities,this->SADWindowSize,
@@ -1195,8 +1193,6 @@ bool SFM::respond(const Bottle& command, Bottle& reply)
 
         updateViaKinematics(eyes-eyes0);
         updateViaGazeCtrl(false);
-
-        getCameraHGazeCtrl(LEFT);
         mutexDisp.lock();
         this->stereo->computeDisparity(this->useBestDisp,this->uniquenessRatio,this->speckleWindowSize,
                 this->speckleRange,this->numberOfDisparities,this->SADWindowSize,
@@ -1228,7 +1224,6 @@ bool SFM::respond(const Bottle& command, Bottle& reply)
             updateViaKinematics(eyes-eyes0);
             updateViaGazeCtrl(false);
 
-            getCameraHGazeCtrl(LEFT);
             mutexDisp.lock();
             this->stereo->computeDisparity(this->useBestDisp,this->uniquenessRatio,this->speckleWindowSize,
                     this->speckleRange,this->numberOfDisparities,this->SADWindowSize,
@@ -1257,7 +1252,6 @@ bool SFM::respond(const Bottle& command, Bottle& reply)
         updateViaKinematics(eyes-eyes0);
         updateViaGazeCtrl(false);
 
-        getCameraHGazeCtrl(LEFT);
         mutexDisp.lock();
         this->stereo->computeDisparity(this->useBestDisp,this->uniquenessRatio,this->speckleWindowSize,
                 this->speckleRange,this->numberOfDisparities,this->SADWindowSize,
